@@ -1,6 +1,6 @@
 # Terraform IaC simple infrastructure with GitHub Actions
 
-By  `B-O-W` with help `Graypit`
+By  `B-O-W` with helm `Graypit`
 
 ![Untitled](Terraform%20IaC%20simple%20infrastructure%20with%20GitHub%20Ac%2058bb1b8160194bad875a5685604d5bb1/Untitled.png)
 
@@ -158,11 +158,23 @@ function deployArgoCD() { # Deploy ArgoCd
     kubectl create namespace argocd
     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
     kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+    
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; |echo "  It's password:"
     kubectl apply -f argocd/
 }
 main
 ```
+
+### after the end of the script you will see thise
+
+P.S out 
+
+```bash
+a08257761e3d4440b95788ecad07e30e-1062891523.eu-central-1.elb.amazonaws.com Go to this link it's alb default user admin
+zz7G-xkTOuLawhPq  It's password:
+```
+
+![Untitled](Terraform%20IaC%20simple%20infrastructure%20with%20GitHub%20Ac%2058bb1b8160194bad875a5685604d5bb1/Untitled%202.png)
 
 ## ****Useful Documentation:****
 
