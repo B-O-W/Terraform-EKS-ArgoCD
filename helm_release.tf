@@ -1,10 +1,10 @@
 resource "helm_release" "my-kubernetes-dashboard" {
-  
+
   name = "my-kubernetes-dashboard"
 
   repository = "https://kubernetes.github.io/dashboard/"
   chart      = "kubernetes-dashboard"
-  namespace  = kubernetes_namespace.monitoring.metadata.0.name
+  namespace  = "default"
 
   set {
     name  = "service.type"
