@@ -23,11 +23,11 @@ For this tutorial, you will need:
 
 The configuration is organized across multiple files:
 
-1. `[versions.tf](https://learn.hashicorp.com/tutorials/terraform/eks#versions-tf)` sets the Terraform version to at least 1.2. It also sets versions for the providers used by the configuration.
-2. `[variables.tf](https://learn.hashicorp.com/tutorials/terraform/eks#variables-tf)` contains a `region` and `clustername`variable that controls where to create the EKS cluster
-3. `[vpc.tf](https://learn.hashicorp.com/tutorials/terraform/eks#vpc-tf)` provisions a VPC, subnets, and availability zones using the [AWS VPC Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/2.32.0). The module creates a new VPC for this tutorial so it doesn't impact your existing cloud environment and resources.
-4. `[security-groups.tf](https://learn.hashicorp.com/tutorials/terraform/eks#security-groups-tf)` provisions the security groups the EKS cluster will use it’s dynamic SG
-5. `[eks-cluster.tf](https://learn.hashicorp.com/tutorials/terraform/eks#eks-cluster-tf)` uses the [AWS EKS Module](https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/11.0.0) to provision an EKS Cluster and other required resources, including Auto Scaling Groups, Security Groups, IAM Roles, and IAM Policies.
+1. `versions.tf` sets the Terraform version to at least 1.2. It also sets versions for the providers used by the configuration.
+2. `variables.tf` contains a `region` and `clustername`variable that controls where to create the EKS cluster
+3. `vpc.tf` provisions a VPC, subnets, and availability zones using the [AWS VPC Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/2.32.0). The module creates a new VPC for this tutorial so it doesn't impact your existing cloud environment and resources.
+4. `security-groups.tf` provisions the security groups the EKS cluster will use it’s dynamic SG
+5. `eks-cluster.tf` uses the [AWS EKS Module](https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/11.0.0) to provision an EKS Cluster and other required resources, including Auto Scaling Groups, Security Groups, IAM Roles, and IAM Policies.
 
 Open the `eks-cluster.tf`
  file to review the configuration. The `worker-groups`
