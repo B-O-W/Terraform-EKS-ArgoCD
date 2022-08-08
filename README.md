@@ -1,6 +1,6 @@
 # Terraform IaC simple infrastructure with GitHub Actions
 
-By  `B-O-W` with help `Graypit`
+By  `B-O-W` with helm `Graypit`
 
 ![Untitled](Terraform%20IaC%20simple%20infrastructure%20with%20GitHub%20Ac%2058bb1b8160194bad875a5685604d5bb1/Untitled.png)
 
@@ -112,6 +112,60 @@ $ aws eks --region $(terraform output -raw region) update-kubeconfig \    --name
 
 You can now use `kubectl` to manage your cluster and deploy Kubernetes configurations to it.
 
+## 3.Change link in ArgoCD
+
+```bash
+#Change link in argocd/kuber.yaml 
+source:
+    repoURL: https://github.com/B-O-W/EKS-Ingress-conntroler-alb.git  # Can point to either a Helm chart repo or a git repo.
+    targetRevision: main  # For Helm, this refers to the chart version.
+    path: manifest/  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
+
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: github
+
+```
+
+## [4.Run](http://4.Run) [setup.sh](http://setup.sh) and go get yourself some coffee
+
+```bash
+#!/usr/bin/env bash
+# Author: Mammadov Elbrus | 28.07.22 | Provision IaaC
+# Main Functions:
+function main() {
+    provisionClusters
+    loadKubeConfig
+    deployArgoCD
+}
+
+function terraformProvision() { # Terraform commands
+    terraform init -upgrade
+    terraform plan
+    terraform apply --auto-approve
+}
+
+function provisionClusters() { # Provision EKS Cluster
+    terraformProvision
+}
+
+function loadKubeConfig() { # Load Kubernetes Config file
+    aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
+}
+
+function deployArgoCD() { # Deploy ArgoCd
+    kubectl create namespace argocd
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; |echo "  It's password:"
+    kubectl apply -f argocd/
+}
+main
+```
+
 ## ****Useful Documentation:****
+
+[https://www.youtube.com/watch?v=KyaJX_litEM&ab_channel=BAKAVETS](https://www.youtube.com/watch?v=KyaJX_litEM&ab_channel=BAKAVETS)
 
 [Provision an EKS Cluster (AWS) | Terraform - HashiCorp Learn](https://learn.hashicorp.com/tutorials/terraform/eks)
