@@ -1,4 +1,4 @@
-# Terraform IaC simple infrastructure with GitHub Actions
+# Terraform IaC simple infrastructure with ArgoCD deploy
 
 By  `B-O-W` with help `Graypit`
 
