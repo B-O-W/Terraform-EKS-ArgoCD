@@ -158,14 +158,31 @@ function deployArgoCD() { # Deploy ArgoCd
     kubectl create namespace argocd
     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
     kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-    
-    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; |echo "  It's password:"
     kubectl apply -f argocd/
+    kubectl get svc -n argocd | grep argocd-server | head -n 1 | awk '{print$4}'; echo "  Go to this link it's alb default user admin"
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; |echo "  It's password:"
 }
 main
 ```
 
-### after the end of the script you will see thise
+```markdown
+1. Script runned Terraform code
+2. Load Kubeconfig to your local system
+3. Deploy a lot of dependency for ArgoCd and wrote credentials for UI
+Admin
+`password he wrote after script work`
+4. *Deploy SimpleApps with ArgoCD(it’s a very simple app nginx with echo banana/apple)*
+
+## Terraform create those dependencies
+
+1. Terraform create new vpc-group with name payrif-vpc (cidr/10.0.0.0/16)
+2. 3 private and public subnets for this vpc 
+3. 2 security group for EKS cluster
+4. All code present in this Project
+5. And if you want one load balancer for app you create service for app and automaticly loadbalancer created and mounted for this service/pod
+```
+
+### Example: after the end of the script you will see thise
 
 P.S out 
 
