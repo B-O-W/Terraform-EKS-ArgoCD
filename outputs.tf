@@ -32,14 +32,3 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = local.cluster_name
 }
-
-
-output "namespace" {
-  description = "New namespace"
-  value       = kubernetes_namespace.monitoring.metadata.0.name
-}
-
-output "ecr_url" {
-  description = "You ecr repo_url"
-  value = aws_ecr_repository.foo.repository_url
-}
