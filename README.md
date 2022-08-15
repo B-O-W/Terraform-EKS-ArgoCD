@@ -1,4 +1,4 @@
-# Terraform IaC simple infrastructure with GitHub Actions
+# Terraform IaaC simple infrastructure with GitHub Actions
 
 By  `B-O-W` with help `Graypit`
 
