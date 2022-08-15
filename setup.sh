@@ -19,6 +19,7 @@
 
     function loadKubeConfig() { # Load Kubernetes Config file
         aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
+        kubectl apply -f ./manifest
     }
 
     function deployArgoCD() { # Deploy ArgoCd
