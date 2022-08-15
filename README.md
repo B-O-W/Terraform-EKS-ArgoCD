@@ -33,7 +33,7 @@ Open the `eks-cluster.tf`
  file to review the configuration. The `worker-groups`
  parameter will create three nodes across one node group.
 
-```jsx
+```terraform
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "17.24.0"
@@ -75,7 +75,7 @@ First, open the `outputs.tf` file to review the output values. You will use th
 
 outputs.tf
 
-```json
+```terraform
 output "cluster_id" {
   description = "EKS cluster ID"
   value       = module.eks.cluster_id
