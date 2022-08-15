@@ -19,7 +19,7 @@
 
     function loadKubeConfig() { # Load Kubernetes Config file
         aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
-        kubectl apply -f ./manifest
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/aws/deploy.yaml && kubectl get pods -n ingress-nginx
     }
 
     function deployArgoCD() { # Deploy ArgoCd
